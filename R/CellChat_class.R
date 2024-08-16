@@ -480,7 +480,11 @@ updateCellChat <- function(object) {
     }
   }
   if ("data.smooth" %in% methods::slotNames(object) == FALSE) {
-    data.smooth <- object@data.project
+    if("data.project" %in% methods::slotNames(object) == TRUE){
+      data.smooth <- object@data.project
+      object@data.project <- NULL
+    }else{
+      data.smooth <- NULL
   } else {
     data.smooth <- object@data.smooth
   }
