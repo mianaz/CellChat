@@ -485,6 +485,7 @@ updateCellChat <- function(object) {
       object@data.project <- NULL
     } else {
       data.smooth <- NULL
+    } 
   } else {
     data.smooth <- object@data.smooth
   }
