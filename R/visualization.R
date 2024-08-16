@@ -227,7 +227,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
       par(mfrow=c(1,2), ps = pt.title)
       netVisual_hierarchy1(prob.sum, vertex.receiver = vertex.receiver, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = NULL, vertex.label.cex = vertex.label.cex,...)
       netVisual_hierarchy2(prob.sum, vertex.receiver = setdiff(1:nrow(prob.sum),vertex.receiver), sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = NULL, vertex.label.cex = vertex.label.cex,...)
-      graphics::mtext(paste0(signaling.name, " signaling pathway network"), side = 3, outer = TRUE, cex = 1, line = -title.space)
+      graphics::mtext(signaling.name, side = 3, outer = TRUE, cex = 1, line = -title.space)
       dev.off()
     }
     if (is.element("png", out.format)) {
@@ -235,7 +235,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
       par(mfrow=c(1,2), ps = pt.title)
       netVisual_hierarchy1(prob.sum, vertex.receiver = vertex.receiver, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max, title.name = NULL, vertex.label.cex = vertex.label.cex,...)
       netVisual_hierarchy2(prob.sum, vertex.receiver = setdiff(1:nrow(prob.sum),vertex.receiver), sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = NULL, vertex.label.cex = vertex.label.cex,...)
-      graphics::mtext(paste0(signaling.name, " signaling pathway network"), side = 3, outer = TRUE, cex = 1, line = -title.space)
+      graphics::mtext(signaling.name, side = 3, outer = TRUE, cex = 1, line = -title.space)
       dev.off()
     }
     if (is.element("pdf", out.format)) {
@@ -244,7 +244,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
       par(mfrow=c(1,2), ps = pt.title)
       netVisual_hierarchy1(prob.sum, vertex.receiver = vertex.receiver, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max, title.name = NULL, vertex.label.cex = vertex.label.cex,...)
       netVisual_hierarchy2(prob.sum, vertex.receiver = setdiff(1:nrow(prob.sum),vertex.receiver), sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max, title.name = NULL, vertex.label.cex = vertex.label.cex,...)
-      graphics::mtext(paste0(signaling.name, " signaling pathway network"), side = 3, outer = TRUE, cex = 1, line = -title.space)
+      graphics::mtext(signaling.name, side = 3, outer = TRUE, cex = 1, line = -title.space)
       dev.off()
     }
 
@@ -291,18 +291,18 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
     #  prob.sum <-(prob.sum-min(prob.sum))/(max(prob.sum)-min(prob.sum))
     if (is.element("svg", out.format)) {
       svglite(file = paste0(signaling.name,"_", layout,  "_aggregate.svg"), width = height, height = 1*height)
-      netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+      netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
       dev.off()
     }
     if (is.element("png", out.format)) {
       grDevices::png(paste0(signaling.name,"_", layout,  "_aggregate.png"), width = height, height = 1*height, units = "in",res = 300)
-      netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+      netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
       dev.off()
     }
     if (is.element("pdf", out.format)) {
       # grDevices::pdf(paste0(signaling.name,"_", layout,  "_aggregate.pdf"), width = height, height = 1*height)
       grDevices::cairo_pdf(paste0(signaling.name,"_", layout,  "_aggregate.pdf"), width = height, height = 1*height)
-      netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max, title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+      netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max.aggregate, edge.width.max=edge.width.max, title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
       dev.off()
     }
   } else if (layout == "spatial") {
@@ -355,18 +355,18 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
     #  prob.sum <-(prob.sum-min(prob.sum))/(max(prob.sum)-min(prob.sum))
     if (is.element("svg", out.format)) {
       svglite(file = paste0(signaling.name,"_", layout,  "_aggregate.svg"), width = height, height = 1*height)
-      netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+      netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
       dev.off()
     }
     if (is.element("png", out.format)) {
       grDevices::png(paste0(signaling.name,"_", layout,  "_aggregate.png"), width = height, height = 1*height, units = "in",res = 300)
-      netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+      netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
       dev.off()
     }
     if (is.element("pdf", out.format)) {
       # grDevices::pdf(paste0(signaling.name,"_", layout,  "_aggregate.pdf"), width = height, height = 1*height)
       grDevices::cairo_pdf(paste0(signaling.name,"_", layout,  "_aggregate.pdf"), width = height, height = 1*height)
-      netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+      netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
       dev.off()
     }
   } else if (layout == "chord") {
@@ -425,7 +425,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
                                     group = group, cell.order = cell.order,
                                     lab.cex = vertex.label.cex,small.gap = small.gap, big.gap = big.gap,
                                     scale = scale, reduce = reduce,
-                                    title.name = paste0(signaling.name, " signaling pathway network"), show.legend = show.legend, legend.pos.x = legend.pos.x,legend.pos.y=legend.pos.y)
+                                    title.name = signaling.name, show.legend = show.legend, legend.pos.x = legend.pos.x,legend.pos.y=legend.pos.y)
       dev.off()
     }
     if (is.element("png", out.format)) {
@@ -434,7 +434,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
                                     group = group, cell.order = cell.order,
                                     lab.cex = vertex.label.cex,small.gap = small.gap, big.gap = big.gap,
                                     scale = scale, reduce = reduce,
-                                    title.name = paste0(signaling.name, " signaling pathway network"), show.legend = show.legend, legend.pos.x = legend.pos.x,legend.pos.y=legend.pos.y)
+                                    title.name = signaling.name, show.legend = show.legend, legend.pos.x = legend.pos.x,legend.pos.y=legend.pos.y)
       dev.off()
     }
     if (is.element("pdf", out.format)) {
@@ -444,7 +444,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
                                     group = group, cell.order = cell.order,
                                     lab.cex = vertex.label.cex,small.gap = small.gap, big.gap = big.gap,
                                     scale = scale, reduce = reduce,
-                                    title.name = paste0(signaling.name, " signaling pathway network"), show.legend = show.legend, legend.pos.x = legend.pos.x,legend.pos.y=legend.pos.y)
+                                    title.name = signaling.name, show.legend = show.legend, legend.pos.x = legend.pos.x,legend.pos.y=legend.pos.y)
       dev.off()
     }
   }
@@ -570,7 +570,7 @@ netVisual_aggregate <- function(object, signaling, signaling.name = NULL, color.
     par(mfrow=c(1,2), ps = pt.title)
     netVisual_hierarchy1(prob.sum, vertex.receiver = vertex.receiver, sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max, title.name = NULL, vertex.label.cex = vertex.label.cex,...)
     netVisual_hierarchy2(prob.sum, vertex.receiver = setdiff(1:nrow(prob.sum),vertex.receiver), sources.use = sources.use, targets.use = targets.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max, title.name = NULL, vertex.label.cex = vertex.label.cex,...)
-    graphics::mtext(paste0(signaling.name, " signaling pathway network"), side = 3, outer = TRUE, cex = 1, line = -title.space)
+    graphics::mtext(signaling.name, side = 3, outer = TRUE, cex = 1, line = -title.space)
     # https://www.andrewheiss.com/blog/2016/12/08/save-base-graphics-as-pseudo-objects-in-r/
     # grid.echo()
     # gg <-  grid.grab()
@@ -578,7 +578,7 @@ netVisual_aggregate <- function(object, signaling, signaling.name = NULL, color.
   } else if (layout == "circle") {
     prob.sum <- apply(prob, c(1,2), sum)
     # prob.sum <-(prob.sum-min(prob.sum))/(max(prob.sum)-min(prob.sum))
-    gg <- netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+    gg <- netVisual_circle(prob.sum, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
   }  else if (layout == "spatial") {
     prob.sum <- apply(prob, c(1,2), sum)
     if (vertex.weight == "incoming"){
@@ -596,7 +596,7 @@ netVisual_aggregate <- function(object, signaling, signaling.name = NULL, color.
     labels <- object@idents
     meta.t <- object@meta
     meta.t$labels <- labels
-    gg <- netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = paste0(signaling.name, " signaling pathway network"), vertex.label.cex = vertex.label.cex,...)
+    gg <- netVisual_spatial(prob.sum, coordinates = coordinates, meta = meta.t, sample.use = sample.use, alpha.image = alpha.image, point.size = point.size, sources.use = sources.use, targets.use = targets.use, idents.use = idents.use, remove.isolate = remove.isolate, top = top, color.use = color.use, vertex.weight = vertex.weight, vertex.weight.max = vertex.weight.max, vertex.size.max = vertex.size.max, weight.scale = weight.scale, edge.weight.max = edge.weight.max, edge.width.max=edge.width.max,title.name = signaling.name, vertex.label.cex = vertex.label.cex,...)
 
   } else if (layout == "chord") {
     prob.sum <- apply(prob, c(1,2), sum)
@@ -604,7 +604,7 @@ netVisual_aggregate <- function(object, signaling, signaling.name = NULL, color.
                                         group = group, cell.order = cell.order,
                                         lab.cex = vertex.label.cex,small.gap = small.gap, big.gap = big.gap,
                                         scale = scale, reduce = reduce,
-                                        title.name = paste0(signaling.name, " signaling pathway network"), show.legend = show.legend, legend.pos.x = legend.pos.x, legend.pos.y= legend.pos.y)
+                                        title.name = signaling.name, show.legend = show.legend, legend.pos.x = legend.pos.x, legend.pos.y= legend.pos.y)
   }
 
   return(gg)
