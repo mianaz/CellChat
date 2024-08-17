@@ -1842,15 +1842,15 @@ netVisual_heatmap <- function(object, comparison = c(1,2), measure = c("count", 
     obj2 <- object@net[[comparison[2]]][[measure]]
     net.diff <- obj2 - obj1
 
-    if (measure == "count") {
-      if (is.null(title.name)) {
-        title.name = "Differential number of interactions"
-      }
-    } else if (measure == "weight") {
-      if (is.null(title.name)) {
-        title.name = "Differential interaction strength"
-      }
-    }
+    #if (measure == "count") {
+    #  if (is.null(title.name)) {
+    #    title.name = "Differential number of interactions"
+    #  }
+    #} else if (measure == "weight") {
+    #  if (is.null(title.name)) {
+    #    title.name = "Differential interaction strength"
+    #  }
+    #}
     legend.name = "Relative values"
   } else {
     message("Do heatmap based on a single object \n")
@@ -1859,22 +1859,22 @@ netVisual_heatmap <- function(object, comparison = c(1,2), measure = c("count", 
     }
     if (!is.null(signaling)) {
       net.diff <- slot(object, slot.name)$prob[,,signaling]
-      if (is.null(title.name)) {
-        title.name = paste0(signaling, " signaling network")
-      }
+      #if (is.null(title.name)) {
+      #  title.name = paste0(signaling, " signaling network")
+      #}
       legend.name <- "Communication Prob."
     } else if (!is.null(measure)) {
       net.diff <- object@net[[measure]]
       if (measure == "count") {
-        if (is.null(title.name)) {
-          title.name = "Number of interactions"
-        }
+        #if (is.null(title.name)) {
+          legend.name = "Number of interactions"
+        #}
       } else if (measure == "weight") {
-        if (is.null(title.name)) {
-          title.name = "Interaction strength"
-        }
+        #if (is.null(title.name)) {
+          legend.name = "Interaction strength"
+        #}
       }
-      legend.name <- title.name
+      #legend.name <- title.name
     }
   }
 
@@ -2017,33 +2017,33 @@ netVisual_barplot <- function(object, comparison = c(1,2), measure = c("count", 
     obj2 <- object@net[[comparison[2]]][[measure]]
     net.diff <- obj2 - obj1
 
-    if (measure == "count") {
-      if (is.null(title.name)) {
-        title.name = "Differential number of interactions"
-      }
-    } else if (measure == "weight") {
-      if (is.null(title.name)) {
-        title.name = "Differential interaction strength"
-      }
-    }
+    #if (measure == "count") {
+      #if (is.null(title.name)) {
+      #  title.name = "Differential number of interactions"
+      #}
+    #} else if (measure == "weight") {
+      #if (is.null(title.name)) {
+      #  title.name = "Differential interaction strength"
+      #}
+    #}
   } else {
     message("Show number of interactions based on a single object \n")
     if (!is.null(signaling)) {
       net.diff <- slot(object, slot.name)$prob[,,signaling]
-      if (is.null(title.name)) {
-        title.name = paste0(signaling, " signaling network")
-      }
+      #if (is.null(title.name)) {
+      #  title.name = paste0(signaling, " signaling network")
+      #}
     } else if (!is.null(measure)) {
       net.diff <- object@net[[measure]]
-      if (measure == "count") {
-        if (is.null(title.name)) {
-          title.name = "Number of interactions"
-        }
-      } else if (measure == "weight") {
-        if (is.null(title.name)) {
-          title.name = "Interaction strength"
-        }
-      }
+      #if (measure == "count") {
+      #  if (is.null(title.name)) {
+      #    title.name = "Number of interactions"
+      #  }
+      #} else if (measure == "weight") {
+      #  if (is.null(title.name)) {
+      #    title.name = "Interaction strength"
+      #  }
+      #}
     }
   }
 
@@ -2582,9 +2582,9 @@ netVisual_chord_cell <- function(object, signaling = NULL, net = NULL, slot.name
     if (slot.name == "netP") {
       message("Plot the aggregated cell-cell communication network at the signaling pathway level")
       net <- apply(prob, c(1,2), sum)
-      if (is.null(title.name)) {
-        title.name <- paste0(signaling, " signaling pathway network")
-      }
+      #if (is.null(title.name)) {
+      #  title.name <- paste0(signaling, " signaling pathway network")
+      #}
       # par(mfrow = c(1,1), xpd=TRUE)
       # par(mar = c(5, 4, 4, 2))
       gg <- netVisual_chord_cell_internal(net, color.use = color.use, group = group, cell.order = cell.order, sources.use = sources.use, targets.use = targets.use,
