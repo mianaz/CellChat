@@ -137,9 +137,9 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
   }
   pairLR <- searchPair(signaling = signaling, pairLR.use = object@LR$LRsig, key = "pathway_name", matching.exact = T, pair.only = F)
 
-  if (is.null(signaling.name)) {
-    signaling.name <- signaling
-  }
+  #if (is.null(signaling.name)) {
+  #  signaling.name <- signaling
+  #}
   net <- object@net
 
   pairLR.use.name <- dimnames(net$prob)[[3]]
@@ -157,7 +157,7 @@ netVisual <- function(object, signaling, signaling.name = NULL, color.use = NULL
 
 
   if (length(pairLR.name.use) == 0) {
-    stop(paste0('There is no significant communication of ', signaling.name))
+    stop(paste0('There is no significant communication of ', signaling))
   } else {
     pairLR <- pairLR[pairLR.name.use,]
   }
@@ -526,9 +526,9 @@ netVisual_aggregate <- function(object, signaling, signaling.name = NULL, color.
   }
   pairLR <- searchPair(signaling = signaling, pairLR.use = object@LR$LRsig, key = "pathway_name", matching.exact = T, pair.only = T)
 
-  if (is.null(signaling.name)) {
-    signaling.name <- signaling
-  }
+  #if (is.null(signaling.name)) {
+  #  signaling.name <- signaling
+  #}
   net <- object@net
 
   pairLR.use.name <- dimnames(net$prob)[[3]]
@@ -692,9 +692,9 @@ netVisual_individual <- function(object, signaling, signaling.name = NULL, pairL
 
   pairLR <- searchPair(signaling = signaling, pairLR.use = object@LR$LRsig, key = "pathway_name", matching.exact = T, pair.only = F)
 
-  if (is.null(signaling.name)) {
-    signaling.name <- signaling
-  }
+  #if (is.null(signaling.name)) {
+  #  signaling.name <- signaling
+  #}
   net <- object@net
 
   pairLR.use.name <- dimnames(net$prob)[[3]]
