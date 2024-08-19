@@ -116,7 +116,7 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim) + coord_flip() + theme(legend.position="none") +
       scale_x_discrete(limits = rev(levels(df$name)), labels = c(rep("", max(0, 10-nlevels(df1$name))),rev(levels(df1$name))))
     if (!is.null(title)) {
-      gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5, size = font.size.title))
+      gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5, size = font.size.title), text=element_text(size=font.size))
     }
     gg
 
