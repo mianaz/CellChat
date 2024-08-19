@@ -111,12 +111,12 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
     df$name <- factor(df$name,levels=df$name[order(df$contribution, decreasing = TRUE)])
     df1$name <- factor(df1$name,levels=df1$name[order(df1$contribution, decreasing = TRUE)])
     gg <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity", width = 0.7) +
-      theme_classic() + theme(axis.text.y = element_text(angle = x.rotation, hjust = 1,size=font.size, colour = 'black'), axis.text=element_text(size=font.size),
-                              axis.title.y = element_text(size= font.size), axis.text.x = element_blank(), axis.ticks = element_blank()) +
+      theme_classic() + theme(axis.text.y = element_text(angle = x.rotation, hjust = 1,size=font.size, colour = 'black'), text=element_text(size=font.size),
+                              axis.text.x = element_blank(), axis.ticks = element_blank()) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim) + coord_flip() + theme(legend.position="none") +
       scale_x_discrete(limits = rev(levels(df$name)), labels = c(rep("", max(0, 10-nlevels(df1$name))),rev(levels(df1$name))))
     if (!is.null(title)) {
-      gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5, size = font.size.title), text=element_text(size=font.size))
+      gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5, size = font.size.title))
     }
     gg
 
