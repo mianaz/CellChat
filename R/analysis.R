@@ -112,7 +112,7 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
     df1$name <- factor(df1$name,levels=df1$name[order(df1$contribution, decreasing = TRUE)])
     gg <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity", width = 0.7) +
       theme_classic() + theme(axis.text.y = element_text(angle = x.rotation, hjust = 1,size=font.size, colour = 'black'), axis.title.y = element_text(size=font.size),
-                              axis.text.x = element_blank(), axis.ticks = element_blank()) +
+                              axis.title.x = element_text(size=font.size), axis.text.x = element_blank(), axis.ticks = element_blank()) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim) + coord_flip() + theme(legend.position="none") +
       scale_x_discrete(limits = rev(levels(df$name)), labels = c(rep("", max(0, 10-nlevels(df1$name))),rev(levels(df1$name))))
     if (!is.null(title)) {
@@ -131,8 +131,8 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
 
     df<- data.frame(name = pair.name, contribution = pSum)
     gg <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity",width = 0.2) +
-      theme_classic() + theme(axis.text=element_text(size=10),axis.text.x = element_text(angle = x.rotation, hjust = 1,size=8),
-                              axis.title.y = element_text(size=font.size)) +
+      theme_classic() + theme(axis.text=element_text(size=font.size),axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size),
+                              axis.title.y = element_text(size=font.size), axis.title.x = element_text(size=font.size)) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim)+ ggtitle("All")+ theme(plot.title = element_text(hjust = 0.5))
 
     # show the communications in Hierarchy1
@@ -147,7 +147,8 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
 
     df<- data.frame(name = pair.name, contribution = pSum)
     gg1 <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity",width = 0.2) +
-      theme_classic() + theme(axis.text=element_text(size=font.size),axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size), axis.title.y = element_text(size=font.size)) +
+      theme_classic() + theme(axis.text=element_text(size=font.size),axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size), 
+                              axis.title.y = element_text(size=font.size), axis.title.x = element_text(size=font.size)) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim)+ ggtitle("Hierarchy1") + theme(plot.title = element_text(hjust = 0.5))
 
     # show the communications in Hierarchy2
@@ -162,7 +163,8 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
 
     df<- data.frame(name = pair.name, contribution = pSum)
     gg2 <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity", width=0.9) +
-      theme_classic() + theme(axis.text=element_text(size=font.size),axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size), axis.title.y = element_text(size=font.size)) +
+      theme_classic() + theme(axis.text=element_text(size=font.size),axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size), 
+                              axis.title.y = element_text(size=font.size), axis.title.x = element_text(size=font.size)) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim)+ ggtitle("Hierarchy2")+ theme(plot.title = element_text(hjust = 0.5))
     title <- cowplot::ggdraw() + cowplot::draw_label(paste0("Contribution of each signaling in ", signaling.name, " pathway"), fontface='bold', size = font.size)
     gg.combined <- cowplot::plot_grid(gg, gg1, gg2, nrow = 1)
