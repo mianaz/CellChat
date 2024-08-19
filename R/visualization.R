@@ -2451,7 +2451,7 @@ netVisual_bubble <- function(object, sources.use = NULL, targets.use = NULL, sig
   }
 
   g <- g + theme(text = element_text(size = size.text),plot.title = element_text(size=size.text.title)) +
-    theme(legend.title = element_text(size = 8), legend.text = element_text(size = 6))
+    theme(legend.title = element_text(size = size.text*0.8), legend.text = element_text(size = size.text*0.6))
 
   if (grid.on) {
     if (length(unique(df$source.target)) > 1) {
@@ -3397,7 +3397,7 @@ netAnalysis_dot <- function(object, slot.name = "netP", pattern = c("outgoing","
   gg <- gg + scale_fill_manual(values = ggplot2::alpha(color.use, alpha = dot.alpha), drop = FALSE, na.value = "white")
   gg <- gg + scale_colour_manual(values = color.use, drop = FALSE, na.value = "white")
   gg <- gg + guides(colour="none") + guides(fill="none")
-  gg <- gg + theme(legend.title = element_text(size = 10), legend.text = element_text(size = 8))
+  gg <- gg + theme(legend.title = element_text(size = size.text), legend.text = element_text(size = size.text*0.8))
   gg
   return(gg)
 }
