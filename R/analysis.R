@@ -1467,10 +1467,11 @@ compareInteractions <- function(object, measure = c("count", "weight"), color.us
     gg <- ggplot(df, aes(x=dataset, y=count, fill = group)) +
       geom_bar(stat="identity", width=width, position=position_dodge())
   }
-  gg <- gg + geom_text(aes(label=count), vjust=-0.3, size=size.text*0.8, position = position_dodge(0.9))
+  gg <- gg + geom_text(aes(label=count), vjust=-0.3, size=size.text*0.5, position = position_dodge(0.9))
   gg <- gg + ylab(ylabel) + xlab(xlabel) + theme_classic() +
     labs(title = title.name) +  theme(plot.title = element_text(size = size.text, face = "bold", hjust = 0.5)) +
-    theme(axis.text = element_text(colour="black", size=size.text*1.5), axis.title=element_text(size=size.text*2))
+    theme(axis.text = element_text(colour="black", size=size.text*0.8), axis.title.x=element_text(size=size.text*0.5),
+         axis.title.y=element_text(size=size.text))
   gg <- gg + scale_fill_manual(values = alpha(color.use, alpha = color.alpha), drop = FALSE)
   #  gg <- gg + scale_color_manual(values = alpha(color.use, alpha = 1), drop = FALSE) + guides(colour = FALSE)
   if (remove.xtick) {
@@ -1485,7 +1486,7 @@ compareInteractions <- function(object, measure = c("count", "weight"), color.us
     gg <- gg + theme(legend.position = "none")
   }
   if (x.lab.rot) {
-    gg <- gg + theme(axis.text.x = element_text(angle = angle.x, hjust = hjust.x, vjust = vjust.x, size=size.text*1.5))
+    gg <- gg + theme(axis.text.x = element_text(angle = angle.x, hjust = hjust.x, vjust = vjust.x, size=size.text*0.8))
   }
   gg
   return(gg)
