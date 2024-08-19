@@ -1616,8 +1616,8 @@ runCellChatApp <- function(object,...) {
                         title = "Numerical",
                         icon = bsicons::bs_icon("sliders"),
                         sliderInput(
-                          "font.size_contribution_plot",
-                          label = "font.size",
+                          "size.text_contribution_plot",
+                          label = "size.text",
                           min = 10,
                           max=30,
                           step = 5,
@@ -1929,8 +1929,8 @@ runCellChatApp <- function(object,...) {
         signaling = input$pathway_contribution_plot,
         sources.use = input$select3_cell_group,
         targets.use = input$select4_cell_group,
-        font.size = input$font.size_contribution_plot,
-        font.size.title = input$font.size_contribution_plot,
+        size.text = input$size.text_contribution_plot,
+        size.text.title = input$size.text_contribution_plot,
       )
     },res = 96)
     ############################################################################
@@ -1969,8 +1969,8 @@ runCellChatApp <- function(object,...) {
       netAnalysis_contribution(
         object,
         signaling = input$selectize_pathway,
-        font.size = 12,
-        font.size.title = 14
+        size.text = 12,
+        size.text.title = 14
       )
     })
     ############################################################################
