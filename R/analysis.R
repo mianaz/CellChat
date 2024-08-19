@@ -12,8 +12,8 @@
 #' @param return.data whether return the data.frame consisting of the predicted L-R pairs and their contribution
 #' @param x.rotation rotation of x-label
 #' @param title the title of the plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @importFrom dplyr select
 #' @importFrom ggplot2 ggplot geom_bar aes coord_flip scale_x_discrete element_text theme ggtitle
 #' @importFrom cowplot ggdraw draw_label plot_grid
@@ -25,7 +25,7 @@
 netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, sources.use = NULL, targets.use = NULL,
                                      width = 0.1, vertex.receiver = NULL, thresh = 0.05, return.data = FALSE,
                                      x.rotation = 0, title = "Contribution of each L-R pair",
-                                     font.size = 10, font.size.title = 10) {
+                                     size.text = 10, size.text.title = 10) {
   pairLR <- searchPair(signaling = signaling, pairLR.use = object@LR$LRsig, key = "pathway_name", matching.exact = T, pair.only = T)
   pair.name.use = select(object@DB$interaction[rownames(pairLR),],"interaction_name_2")
   if (is.null(signaling.name)) {
@@ -111,12 +111,12 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
     df$name <- factor(df$name,levels=df$name[order(df$contribution, decreasing = TRUE)])
     df1$name <- factor(df1$name,levels=df1$name[order(df1$contribution, decreasing = TRUE)])
     gg <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity", width = 0.7) +
-      theme_classic() + theme(axis.text.y = element_text(angle = x.rotation, hjust = 1,size=font.size, colour = 'black'),
-                              axis.title = element_text(size=font.size), axis.text.x = element_blank(), axis.ticks = element_blank()) +
+      theme_classic() + theme(axis.text.y = element_text(angle = x.rotation, hjust = 1,size=size.text, colour = 'black'),
+                              axis.title = element_text(size=size.text), axis.text.x = element_blank(), axis.ticks = element_blank()) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim) + coord_flip() + theme(legend.position="none") +
       scale_x_discrete(limits = rev(levels(df$name)), labels = c(rep("", max(0, 10-nlevels(df1$name))),rev(levels(df1$name))))
     if (!is.null(title)) {
-      gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5, size = font.size.title))
+      gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5, size = size.text.title))
     }
     gg
 
@@ -131,8 +131,8 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
 
     df<- data.frame(name = pair.name, contribution = pSum)
     gg <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity",width = 0.2) +
-      theme_classic() + theme(axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size),
-                              axis.title=element_text(size=font.size)) +
+      theme_classic() + theme(axis.text.x = element_text(angle = x.rotation, hjust = 1,size=size.text),
+                              axis.title=element_text(size=size.text)) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim)+ ggtitle("All")+ theme(plot.title = element_text(hjust = 0.5))
 
     # show the communications in Hierarchy1
@@ -147,8 +147,8 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
 
     df<- data.frame(name = pair.name, contribution = pSum)
     gg1 <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity",width = 0.2) +
-      theme_classic() + theme(axis.text.x = element_text(angle = x.rotation, hjust = 1, size=font.size), 
-                              axis.title = element_text(size=font.size)) +
+      theme_classic() + theme(axis.text.x = element_text(angle = x.rotation, hjust = 1, size=size.text), 
+                              axis.title = element_text(size=size.text)) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim)+ ggtitle("Hierarchy1") + theme(plot.title = element_text(hjust = 0.5))
 
     # show the communications in Hierarchy2
@@ -163,10 +163,10 @@ netAnalysis_contribution <- function(object, signaling, signaling.name = NULL, s
 
     df<- data.frame(name = pair.name, contribution = pSum)
     gg2 <- ggplot(df, aes(x=name, y=contribution)) + geom_bar(stat="identity", width=0.9) +
-      theme_classic() + theme(axis.text.x = element_text(angle = x.rotation, hjust = 1,size=font.size), 
-                              axis.title = element_text(size=font.size)) +
+      theme_classic() + theme(axis.text.x = element_text(angle = x.rotation, hjust = 1,size=size.text), 
+                              axis.title = element_text(size=size.text)) +
       xlab("") + ylab("Relative contribution") + ylim(0,y.lim)+ ggtitle("Hierarchy2")+ theme(plot.title = element_text(hjust = 0.5))
-    title <- cowplot::ggdraw() + cowplot::draw_label(paste0("Contribution of each signaling in ", signaling.name, " pathway"), fontface='bold', size = font.size.title)
+    title <- cowplot::ggdraw() + cowplot::draw_label(paste0("Contribution of each signaling in ", signaling.name, " pathway"), fontface='bold', size = size.text.title)
     gg.combined <- cowplot::plot_grid(gg, gg1, gg2, nrow = 1)
     gg.combined <- cowplot::plot_grid(title, gg.combined, ncol = 1, rel_heights=c(0.1, 1))
     gg <- gg.combined
@@ -351,7 +351,7 @@ selectK <- function(object, slot.name = "netP", pattern = c("outgoing","incoming
 #' @param title.legend the title of legend in heatmap
 #' @param width width of heatmap
 #' @param height height of heatmap
-#' @param font.size fontsize in heatmap
+#' @param size.text fontsize in heatmap
 #' @importFrom methods slot
 #' @importFrom NMF nmfEstimateRank nmf
 #' @importFrom grDevices colorRampPalette
@@ -367,7 +367,7 @@ selectK <- function(object, slot.name = "netP", pattern = c("outgoing","incoming
 
 identifyCommunicationPatterns <- function(object, slot.name = "netP", pattern = c("outgoing","incoming"), k = NULL, k.range = seq(2,10), heatmap.show = TRUE,
                                           color.use = NULL, color.heatmap = "Spectral", title.legend = "Contributions",
-                                          width = 4, height = 6, font.size = 8) {
+                                          width = 4, height = 6, size.text = 8) {
   pattern <- match.arg(pattern)
   prob <- methods::slot(object, slot.name)$prob
   if (pattern == "outgoing") {
@@ -406,7 +406,7 @@ identifyCommunicationPatterns <- function(object, slot.name = "netP", pattern = 
     ht1 = Heatmap(net, col = color.heatmap, na_col = "white", name = "Contribution",
                   left_annotation = row_annotation,
                   cluster_rows = T,cluster_columns = F,clustering_method_rows = "average",
-                  row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = font.size),column_names_gp = gpar(fontsize = font.size),
+                  row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = size.text),column_names_gp = gpar(fontsize = size.text),
                   width = unit(width, "cm"), height = unit(height, "cm"),
                   show_heatmap_legend = F,
                   column_title = "Cell patterns",column_title_gp = gpar(fontsize = 10)
@@ -417,7 +417,7 @@ identifyCommunicationPatterns <- function(object, slot.name = "netP", pattern = 
 
     ht2 = Heatmap(net, col = color.heatmap, na_col = "white", name = "Contribution",
                   cluster_rows = T,cluster_columns = F,clustering_method_rows = "average",
-                  row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = font.size),column_names_gp = gpar(fontsize = font.size),
+                  row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = size.text),column_names_gp = gpar(fontsize = size.text),
                   width = unit(width, "cm"), height = unit(height, "cm"),
                   column_title = "Communication patterns",column_title_gp = gpar(fontsize = 10),
                   heatmap_legend_param = list(title = title.legend, title_gp = gpar(fontsize = 8, fontface = "plain"),title_position = "leftcenter-rot",
@@ -904,7 +904,7 @@ computeLaplacian <- function(CM, tol = 0.01) {
 #' @param title main title of the plot
 #' @param bar.w the width of bar plot
 #' @param color.use defining the color
-#' @param font.size font size
+#' @param size.text font size
 #' @import ggplot2
 #' @importFrom methods slot
 #' @return
@@ -912,7 +912,7 @@ computeLaplacian <- function(CM, tol = 0.01) {
 #'
 #' @examples
 rankSimilarity <- function(object, slot.name = "netP", type = c("functional","structural"), comparison1 = NULL,  comparison2 = c(1,2),
-                           x.rotation = 90, title = NULL, color.use = NULL, bar.w = NULL, font.size = 8) {
+                           x.rotation = 90, title = NULL, color.use = NULL, bar.w = NULL, size.text = 8) {
   type <- match.arg(type)
 
   if (is.null(comparison1)) {
@@ -964,7 +964,7 @@ rankSimilarity <- function(object, slot.name = "netP", type = c("functional","st
   df$name <- factor(df$name, levels = as.character(df$name))
 
   gg <- ggplot(df, aes(x=name, y=dist)) + geom_bar(stat="identity",width = bar.w) +
-    theme_classic() + theme(text=element_text(size=font.size),axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_text(size=font.size)) +
+    theme_classic() + theme(text=element_text(size=size.text),axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_text(size=size.text)) +
     xlab("") + ylab("Pathway distance") + coord_flip()#+
   if (!is.null(title)) {
     gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5))
@@ -1014,7 +1014,7 @@ rankSimilarity <- function(object, slot.name = "netP", type = c("functional","st
 #' @param x.rotation rotation of x-labels
 #' @param title main title of the plot
 #' @param bar.w the width of bar plot
-#' @param font.size font size
+#' @param size.text font size
 
 #' @import ggplot2
 #' @importFrom methods slot
@@ -1022,7 +1022,7 @@ rankSimilarity <- function(object, slot.name = "netP", type = c("functional","st
 #' @export
 #'
 #' @examples
-rankNet <- function(object, slot.name = "netP", measure = c("weight","count"), mode = c("comparison", "single"), comparison = c(1,2), color.use = NULL, stacked = FALSE, sources.use = NULL, targets.use = NULL,  signaling = NULL, pairLR = NULL, signaling.type = NULL, do.stat = FALSE, cutoff.pvalue = 0.05, tol = 0.05, thresh = 0.05, show.raw = FALSE, return.data = FALSE, x.rotation = 90, title = NULL, bar.w = 0.75, font.size = 8,
+rankNet <- function(object, slot.name = "netP", measure = c("weight","count"), mode = c("comparison", "single"), comparison = c(1,2), color.use = NULL, stacked = FALSE, sources.use = NULL, targets.use = NULL,  signaling = NULL, pairLR = NULL, signaling.type = NULL, do.stat = FALSE, cutoff.pvalue = 0.05, tol = 0.05, thresh = 0.05, show.raw = FALSE, return.data = FALSE, x.rotation = 90, title = NULL, bar.w = 0.75, size.text = 8,
                     do.flip = TRUE, x.angle = NULL, y.angle = 0, x.hjust = 1,y.hjust = 1,
                     axis.gap = FALSE, ylim = NULL, segments = NULL, tick_width = NULL, rel_heights = c(0.9,0,0.1)) {
   measure <- match.arg(measure)
@@ -1114,7 +1114,7 @@ rankNet <- function(object, slot.name = "netP", measure = c("weight","count"), m
     }
 
     gg <- ggplot(df, aes(x=name, y=contribution.scaled)) + geom_bar(stat="identity",width = bar.w) +
-      theme_classic() + theme(axis.text=element_text(size=font.size),axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_text(size=10)) +
+      theme_classic() + theme(axis.text=element_text(size=size.text),axis.text.x = element_blank(), axis.ticks.x = element_blank(), axis.title.y = element_text(size=10)) +
       xlab("") + ylab(ylabel) + coord_flip()#+
     if (!is.null(title)) {
       gg <- gg + ggtitle(title)+ theme(plot.title = element_text(hjust = 0.5))
@@ -1368,7 +1368,7 @@ rankNet <- function(object, slot.name = "netP", measure = c("weight","count"), m
 
     }
 
-    gg <- gg + theme(axis.text=element_text(size=font.size), axis.title.y = element_text(size=font.size))
+    gg <- gg + theme(axis.text=element_text(size=size.text), axis.title.y = element_text(size=size.text))
     gg <- gg + scale_fill_manual(name = "", values = color.use)
     gg <- gg + guides(fill = guide_legend(reverse = TRUE))
     gg <- gg + theme(axis.text.x = element_text(angle = x.angle, hjust=x.hjust),
@@ -2231,8 +2231,8 @@ subsetCommunication_internal <- function(net, LR, cells.level, slot.name = "net"
 #' @param color.heatmap a color name in brewer.pal
 #' @param width width of heatmap
 #' @param height height of heatmap
-#' @param font.size fontsize in heatmap
-#' @param font.size.title font size of the title
+#' @param size.text fontsize in heatmap
+#' @param size.text.title font size of the title
 #' @param cluster.rows whether cluster rows
 #' @param cluster.cols whether cluster columns
 #' @importFrom methods slot
@@ -2247,7 +2247,7 @@ subsetCommunication_internal <- function(net, LR, cells.level, slot.name = "net"
 #' @examples
 netAnalysis_signalingRole_network <- function(object, signaling, slot.name = "netP", measure = c("outdeg","indeg","flowbet","info"), measure.name = c("Sender","Receiver","Mediator","Influencer"),
                                     color.use = NULL, color.heatmap = "BuGn",
-                                    width = 6.5, height = 1.4, font.size = 8, font.size.title = 10, cluster.rows = FALSE, cluster.cols = FALSE) {
+                                    width = 6.5, height = 1.4, size.text = 8, size.text.title = 10, cluster.rows = FALSE, cluster.cols = FALSE) {
   if (length(slot(object, slot.name)$centr) == 0) {
     stop("Please run `netAnalysis_computeCentrality` to compute the network centrality scores! ")
   }
@@ -2282,9 +2282,9 @@ netAnalysis_signalingRole_network <- function(object, signaling, slot.name = "ne
     ht1 = Heatmap(mat, col = color.heatmap.use, na_col = "white", name = "Importance",
                   bottom_annotation = col_annotation,
                   cluster_rows = cluster.rows,cluster_columns = cluster.cols,
-                  row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = font.size),column_names_gp = gpar(fontsize = font.size),
+                  row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = size.text),column_names_gp = gpar(fontsize = size.text),
                   width = unit(width, "cm"), height = unit(height, "cm"),
-                  column_title = paste0(names(centr[i]), " signaling pathway network"),column_title_gp = gpar(fontsize = font.size.title),column_names_rot = 45,
+                  column_title = paste0(names(centr[i]), " signaling pathway network"),column_title_gp = gpar(fontsize = size.text.title),column_names_rot = 45,
                   heatmap_legend_param = list(title = "Importance", title_gp = gpar(fontsize = 8, fontface = "plain"),title_position = "leftcenter-rot",
                                               border = NA, at = c(round(min(mat, na.rm = T), digits = 1), round(max(mat, na.rm = T), digits = 1)),
                                               legend_height = unit(20, "mm"),labels_gp = gpar(fontsize = 8),grid_width = unit(2, "mm"))
@@ -2323,8 +2323,8 @@ netAnalysis_signalingRole_network <- function(object, signaling, slot.name = "ne
 #' @param xlabel label of x-axis
 #' @param ylabel label of y-axis
 #' @param title main title of the plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @param do.label label the each point
 #' @param show.legend whether show the legend
 #' @param show.axes whether show the axes
@@ -2336,7 +2336,7 @@ netAnalysis_signalingRole_network <- function(object, signaling, slot.name = "ne
 #'
 netAnalysis_signalingRole_scatter <- function(object, signaling = NULL, color.use = NULL, slot.name = "netP", group = NULL, weight.MinMax = NULL, dot.size = c(2, 6), point.shape = c(21, 22, 24, 23, 25, 8, 3), label.size = 3, dot.alpha = 0.6,
                                               x.measure = "outdeg", y.measure = "indeg",xlabel = "Outgoing interaction strength", ylabel = "Incoming interaction strength", title = NULL,
-                                              font.size = 10, font.size.title = 10, do.label = T, show.legend = T, show.axes = T) {
+                                              size.text = 10, size.text.title = 10, do.label = T, show.legend = T, show.axes = T) {
   if (length(slot(object, slot.name)$centr) == 0) {
     stop("Please run `netAnalysis_computeCentrality` to compute the network centrality scores! ")
   }
@@ -2386,9 +2386,9 @@ netAnalysis_signalingRole_scatter <- function(object, signaling = NULL, color.us
   }
 
   gg <- gg + CellChat_theme_opts() +
-    theme(text = element_text(size = font.size), legend.key.height = grid::unit(0.15, "in"))+
+    theme(text = element_text(size = size.text), legend.key.height = grid::unit(0.15, "in"))+
     # guides(colour = guide_legend(override.aes = list(size = 3)))+
-    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= font.size.title, face="plain"))+
+    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= size.text.title, face="plain"))+
     # theme(axis.text.x = element_blank(),axis.text.y = element_blank(),axis.ticks = element_blank()) +
     theme(axis.line.x = element_line(size = 0.25), axis.line.y = element_line(size = 0.25))
   gg <- gg + scale_fill_manual(values = ggplot2::alpha(color.use, alpha = dot.alpha), drop = FALSE) + guides(fill="none")
@@ -2454,8 +2454,8 @@ netAnalysis_signalingRole_scatter <- function(object, signaling = NULL, color.us
 #' @param xlabel label of x-axis
 #' @param ylabel label of y-axis
 #' @param title main title of the plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @param do.label label the each point
 #' @param show.legend whether show the legend
 #' @param show.axes whether show the axes
@@ -2467,7 +2467,7 @@ netAnalysis_signalingRole_scatter <- function(object, signaling = NULL, color.us
 #'
 netAnalysis_diff_signalingRole_scatter <- function(object, color.use = NULL, comparison = c(1,2), signaling = NULL, signaling.exclude = NULL, idents.exclude = NULL, slot.name = "netP", group = NULL, dot.size = 2.5, point.shape = c(21, 22, 24, 23, 25, 8, 3), label.size = 3, dot.alpha = 0.6,
                                                    x.measure = "outdeg", y.measure = "indeg", xlabel = "Outgoing interaction strength", ylabel = "Incoming interaction strength", title = NULL,
-                                                   font.size = 10, font.size.title = 10, do.label = T, show.legend = T, show.axes = T) {
+                                                   size.text = 10, size.text.title = 10, do.label = T, show.legend = T, show.axes = T) {
   if (is.list(object)) {
     object <- mergeCellChat(object, add.names = names(object))
   }
@@ -2558,9 +2558,9 @@ netAnalysis_diff_signalingRole_scatter <- function(object, color.use = NULL, com
 
   gg <- gg + CellChat_theme_opts() + theme_linedraw() +theme(panel.grid = element_blank()) +
     geom_hline(yintercept=0,linetype="dashed", color = "grey50", size = 0.25) + geom_vline(xintercept=0, linetype="dashed", color = "grey50",size = 0.25) +
-    theme(text = element_text(size = font.size), legend.key.height = grid::unit(0.15, "in"))+
+    theme(text = element_text(size = size.text), legend.key.height = grid::unit(0.15, "in"))+
     # guides(colour = guide_legend(override.aes = list(size = 3)))+
-    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= font.size.title, face="plain", hjust = 0.5))+
+    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= size.text.title, face="plain", hjust = 0.5))+
     # theme(axis.text.x = element_blank(),axis.text.y = element_blank(),axis.ticks = element_blank()) +
     theme(axis.line.x = element_line(size = 0.25), axis.line.y = element_line(size = 0.25))
   gg <- gg + scale_fill_manual(values = ggplot2::alpha(color.use, alpha = dot.alpha), drop = FALSE) + guides(fill="none")
@@ -2617,8 +2617,8 @@ netAnalysis_diff_signalingRole_scatter <- function(object, color.use = NULL, com
 #' @param xlabel label of x-axis
 #' @param ylabel label of y-axis
 #' @param title main title of the plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @param do.label label the each point
 #' @param show.legend whether show the legend
 #' @param show.axes whether show the axes
@@ -2631,7 +2631,7 @@ netAnalysis_diff_signalingRole_scatter <- function(object, color.use = NULL, com
 #'
 netAnalysis_signalingChanges_scatter <- function(object, idents.use, color.use = c("grey10", "#F8766D", "#00BFC4"), comparison = c(1,2), signaling = NULL, signaling.label = NULL, top.label = 1, signaling.exclude = NULL, xlims = NULL, ylims = NULL,slot.name = "netP", dot.size = 2.5, point.shape = c(21, 22, 24, 23), label.size = 3, dot.alpha = 0.6,
                                                  x.measure = "outdeg", y.measure = "indeg", xlabel = "Differential outgoing interaction strength", ylabel = "Differential incoming interaction strength", title = NULL,
-                                                 font.size = 10, font.size.title = 10, do.label = T, show.legend = T, show.axes = T) {
+                                                 size.text = 10, size.text.title = 10, do.label = T, show.legend = T, show.axes = T) {
   if (is.list(object)) {
     object <- mergeCellChat(object, add.names = names(object))
   }
@@ -2740,9 +2740,9 @@ netAnalysis_signalingChanges_scatter <- function(object, idents.use, color.use =
     geom_point(aes(colour = specificity, fill = specificity, shape = specificity.out.in), size = dot.size)
   gg <- gg + theme_linedraw() +theme(panel.grid = element_blank()) +
     geom_hline(yintercept=0,linetype="dashed", color = "grey50", size = 0.25) + geom_vline(xintercept=0, linetype="dashed", color = "grey50",size = 0.25) +
-    theme(text = element_text(size = font.size), legend.key.height = grid::unit(0.15, "in"))+
+    theme(text = element_text(size = size.text), legend.key.height = grid::unit(0.15, "in"))+
     # guides(colour = guide_legend(override.aes = list(size = 3)))+
-    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= font.size.title, hjust = 0.5, face="plain"))+
+    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= size.text.title, hjust = 0.5, face="plain"))+
     # theme(axis.text.x = element_blank(),axis.text.y = element_blank(),axis.ticks = element_blank()) +
     theme(axis.line.x = element_line(size = 0.25), axis.line.y = element_line(size = 0.25))
   gg <- gg + scale_fill_manual(values = ggplot2::alpha(color.use, alpha = dot.alpha), drop = FALSE) + guides(fill="none")
@@ -2795,8 +2795,8 @@ netAnalysis_signalingChanges_scatter <- function(object, idents.use, color.use =
 #' @param title title name
 #' @param width width of heatmap
 #' @param height height of heatmap
-#' @param font.size fontsize in heatmap
-#' @param font.size.title font size of the title
+#' @param size.text fontsize in heatmap
+#' @param size.text.title font size of the title
 #' @param cluster.rows whether cluster rows
 #' @param cluster.cols whether cluster columns
 #' @importFrom methods slot
@@ -2810,7 +2810,7 @@ netAnalysis_signalingChanges_scatter <- function(object, idents.use, color.use =
 #'
 netAnalysis_signalingRole_heatmap <- function(object, signaling = NULL, pattern = c("outgoing", "incoming","all"), slot.name = "netP",
                                               color.use = NULL, color.heatmap = "BuGn",
-                                              title = NULL, width = 10, height = 8, font.size = 8, font.size.title = 10, cluster.rows = FALSE, cluster.cols = FALSE){
+                                              title = NULL, width = 10, height = 8, size.text = 8, size.text.title = 10, cluster.rows = FALSE, cluster.cols = FALSE){
   pattern <- match.arg(pattern)
   if (length(slot(object, slot.name)$centr) == 0) {
     stop("Please run `netAnalysis_computeCentrality` to compute the network centrality scores! ")
@@ -2885,9 +2885,9 @@ netAnalysis_signalingRole_heatmap <- function(object, signaling = NULL, pattern 
   ht1 = Heatmap(mat, col = color.heatmap.use, na_col = "white", name = "Relative strength",
                 bottom_annotation = col_annotation, top_annotation = ha2, right_annotation = ha1,
                 cluster_rows = cluster.rows,cluster_columns = cluster.rows,
-                row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = font.size),column_names_gp = gpar(fontsize = font.size),
+                row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = size.text),column_names_gp = gpar(fontsize = size.text),
                 width = unit(width, "cm"), height = unit(height, "cm"),
-                column_title = title,column_title_gp = gpar(fontsize = font.size.title),column_names_rot = 90,
+                column_title = title,column_title_gp = gpar(fontsize = size.text.title),column_names_rot = 90,
                 heatmap_legend_param = list(title_gp = gpar(fontsize = 8, fontface = "plain"),title_position = "leftcenter-rot",
                                             border = NA, at = legend.break,
                                             legend_height = unit(20, "mm"),labels_gp = gpar(fontsize = 8),grid_width = unit(2, "mm"))
