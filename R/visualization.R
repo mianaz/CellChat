@@ -1812,8 +1812,8 @@ netVisual_diffInteraction <- function(object, comparison = c(1,2), measure = c("
 #' @param title.name the name of the title
 #' @param width width of heatmap
 #' @param height height of heatmap
-#' @param font.size fontsize in heatmap
-#' @param font.size.title font size of the title
+#' @param size.text fontsize in heatmap
+#' @param size.text.title font size of the title
 #' @param cluster.rows whether cluster rows
 #' @param cluster.cols whether cluster columns
 #' @param sources.use a vector giving the index or the name of source cell groups
@@ -1827,7 +1827,7 @@ netVisual_diffInteraction <- function(object, comparison = c(1,2), measure = c("
 #' @return  an object of ComplexHeatmap
 #' @export
 netVisual_heatmap <- function(object, comparison = c(1,2), measure = c("count", "weight"), signaling = NULL, slot.name = c("netP", "net"), color.use = NULL, color.heatmap = NULL,
-                              title.name = NULL, width = NULL, height = NULL, font.size = 8, font.size.title = 10, cluster.rows = FALSE, cluster.cols = FALSE,
+                              title.name = NULL, width = NULL, height = NULL, size.text = 8, size.text.title = 10, cluster.rows = FALSE, cluster.cols = FALSE,
                               sources.use = NULL, targets.use = NULL, remove.isolate = FALSE, row.show = NULL, col.show = NULL){
   if (!is.null(measure)) {
     measure <- match.arg(measure)
@@ -1975,10 +1975,10 @@ netVisual_heatmap <- function(object, comparison = c(1,2), measure = c("count", 
   ht1 = Heatmap(mat, col = color.heatmap.use, na_col = "white", name = legend.name,
                 bottom_annotation = col_annotation, left_annotation =row_annotation, top_annotation = ha2, right_annotation = ha1,
                 cluster_rows = cluster.rows,cluster_columns = cluster.rows,
-                row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = font.size),column_names_gp = gpar(fontsize = font.size),
+                row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = size.text),column_names_gp = gpar(fontsize = size.text),
                 # width = unit(width, "cm"), height = unit(height, "cm"),
-                column_title = title.name,column_title_gp = gpar(fontsize = font.size.title),column_names_rot = 90,
-                row_title = "Sources (Sender)",row_title_gp = gpar(fontsize = font.size.title),row_title_rot = 90,
+                column_title = title.name,column_title_gp = gpar(fontsize = size.text.title),column_names_rot = 90,
+                row_title = "Sources (Sender)",row_title_gp = gpar(fontsize = size.text.title),row_title_rot = 90,
                 heatmap_legend_param = list(title_gp = gpar(fontsize = 8, fontface = "plain"),title_position = "leftcenter-rot",
                                             border = NA, #at = colorbar.break,
                                             legend_height = unit(20, "mm"),labels_gp = gpar(fontsize = 8),grid_width = unit(2, "mm"))
@@ -2116,7 +2116,7 @@ netVisual_barplot <- function(object, comparison = c(1,2), measure = c("count", 
 #' @param color.text the colors for xtick labels according to the dataset origin when doing comparison analysis
 #' @param dot.size.min,dot.size.max Size of smallest and largest points
 #' @param title.name main title of the plot
-#' @param font.size,font.size.title font size of all the text and the title name
+#' @param size.text,size.text.title font size of all the text and the title name
 #' @param show.legend whether to show legend
 #' @param grid.on,color.grid whether to add grid
 #' @param angle.x,vjust.x,hjust.x parameters for adjusting the rotation of xtick labels
@@ -2157,7 +2157,7 @@ netVisual_barplot <- function(object, comparison = c(1,2), measure = c("count", 
 netVisual_bubble <- function(object, sources.use = NULL, targets.use = NULL, signaling = NULL, pairLR.use = NULL, sort.by.source = FALSE, sort.by.target = FALSE, sort.by.source.priority = TRUE, color.heatmap = c("Spectral","viridis"), n.colors = 10, direction = -1, thresh = 0.05,
                              comparison = NULL, group = NULL, remove.isolate = FALSE, max.dataset = NULL, min.dataset = NULL,
                              min.quantile = 0, max.quantile = 1, line.on = TRUE, line.size = 0.2, color.text.use = TRUE, color.text = NULL, dot.size.min = NULL, dot.size.max = NULL,
-                             title.name = NULL, font.size = 10, font.size.title = 10, show.legend = TRUE,
+                             title.name = NULL, size.text = 10, size.text.title = 10, show.legend = TRUE,
                              grid.on = TRUE, color.grid = "grey90", angle.x = 90, vjust.x = NULL, hjust.x = NULL,
                              return.data = FALSE){
   color.heatmap <- match.arg(color.heatmap)
@@ -2450,7 +2450,7 @@ netVisual_bubble <- function(object, sources.use = NULL, targets.use = NULL, sig
       guides(color = guide_colourbar(barwidth = 0.5, title = "Commun. Prob."))
   }
 
-  g <- g + theme(text = element_text(size = font.size),plot.title = element_text(size=font.size.title)) +
+  g <- g + theme(text = element_text(size = size.text),plot.title = element_text(size=size.text.title)) +
     theme(legend.title = element_text(size = 8), legend.text = element_text(size = 6))
 
   if (grid.on) {
@@ -3058,8 +3058,8 @@ netVisual_chord_gene <- function(object, slot.name = "net", color.use = NULL,
 #' @param color.use.signaling the character vector defining the color of each signaling
 #' @param do.order whether reorder the cell groups or signaling according to their similarity
 #' @param main.title the title of plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @importFrom methods slot
 #' @importFrom stats cutree dist hclust
 #' @importFrom grDevices colorRampPalette
@@ -3076,7 +3076,7 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
                               sources.use = NULL, targets.use = NULL, signaling = NULL,
                               color.use = NULL, color.use.pattern = NULL, color.use.signaling = "grey50",
                               do.order = FALSE, main.title = NULL,
-                              font.size = 2.5, font.size.title = 12){
+                              size.text = 2.5, size.text.title = 12){
   message("Please make sure you have load `library(ggalluvial)` when running this function")
   requireNamespace("ggalluvial")
   #  suppressMessages(require(ggalluvial))
@@ -3128,7 +3128,7 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
                                     fill = stratum, label = stratum)) +
       geom_flow(width = 1/3,aes.flow = "backward") +
       geom_stratum(width=1/3,size=0.1,color="black", alpha = 0.8, linetype = 1) +
-      geom_text(stat = "stratum", size = font.size) +
+      geom_text(stat = "stratum", size = size.text) +
       scale_x_discrete(limits = c(),  labels=c("Cell groups", "Patterns")) +
       scale_fill_manual(values = alpha(color.use.all, alpha = 0.8), drop = FALSE) +
       theme_bw()+
@@ -3184,7 +3184,7 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
                                      fill = stratum, label = stratum)) +
       geom_flow(width = 1/3,aes.flow = "backward") +
       geom_stratum(width=1/3,size=0.1,color="black", alpha = 0.8, linetype = 1) +
-      geom_text(stat = "stratum", size = font.size) +
+      geom_text(stat = "stratum", size = size.text) +
       scale_x_discrete(limits = c(),  labels=c("Cell groups", "Patterns")) +
       scale_fill_manual(values = alpha(color.use.all, alpha = 0.8), drop = FALSE) +
       theme_bw()+
@@ -3229,7 +3229,7 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
                                      fill = stratum, label = stratum)) +
       geom_flow(width = 1/3,aes.flow = "forward") +
       geom_stratum(width=1/3,size=0.1,color="black", alpha = 0.8, linetype = 1) +
-      geom_text(stat = "stratum", size = font.size) + # 2.5
+      geom_text(stat = "stratum", size = size.text) + # 2.5
       scale_x_discrete(limits = c(),  labels=c("Patterns", "Signaling")) +
       scale_fill_manual(values = alpha(color.use.all, alpha = 0.8), drop = FALSE) +
       theme_bw()+
@@ -3293,7 +3293,7 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
 
 
     gg <- cowplot::plot_grid(gg1, gg2,align = "h", nrow = 1)
-    title <- cowplot::ggdraw() + cowplot::draw_label(main.title,size = font.size.title)
+    title <- cowplot::ggdraw() + cowplot::draw_label(main.title,size = size.text.title)
     gg <- cowplot::plot_grid(title, gg, ncol=1, rel_heights=c(0.1, 1))
   }
   return(gg)
@@ -3314,8 +3314,8 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
 #' @param dot.size a range defining the size of the symbol
 #' @param dot.alpha transparency
 #' @param main.title the title of plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @importFrom methods slot
 #' @import ggplot2
 #' @importFrom dplyr group_by top_n
@@ -3326,7 +3326,7 @@ netAnalysis_river <- function(object, slot.name = "netP", pattern = c("outgoing"
 netAnalysis_dot <- function(object, slot.name = "netP", pattern = c("outgoing","incoming"), cutoff = NULL, color.use = NULL,
                             pathway.show = NULL, group.show = NULL,
                             shape = 21, dot.size = c(1, 3), dot.alpha = 1, main.title = NULL,
-                            font.size = 10, font.size.title = 12){
+                            size.text = 10, size.text.title = 12){
   pattern <- match.arg(pattern)
   patternSignaling <- methods::slot(object, slot.name)$pattern[[pattern]]
   data1 = patternSignaling$pattern$cell
@@ -3386,7 +3386,7 @@ netAnalysis_dot <- function(object, slot.name = "netP", pattern = c("outgoing","
     scale_x_discrete(position = "bottom") +
     ggtitle(main.title) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    theme(text = element_text(size = font.size),plot.title = element_text(size=font.size.title, face="plain"),
+    theme(text = element_text(size = size.text),plot.title = element_text(size=size.text.title, face="plain"),
           axis.text.x = element_text(angle = 45, hjust=1),
           axis.text.y = element_text(angle = 0, hjust=1),
           axis.title.x = element_blank(),
@@ -3418,8 +3418,8 @@ netAnalysis_dot <- function(object, slot.name = "netP", pattern = c("outgoing","
 #' @param xlabel label of x-axis
 #' @param ylabel label of y-axis
 #' @param title main title of the plot
-#' @param font.size font size of the text
-#' @param font.size.title font size of the title
+#' @param size.text font size of the text
+#' @param size.text.title font size of the title
 #' @param label.size font size of the text
 #' @param do.label label the each point
 #' @param show.legend whether show the legend
@@ -3433,7 +3433,7 @@ netAnalysis_dot <- function(object, slot.name = "netP", pattern = c("outgoing","
 #' @examples
 netVisual_embedding <- function(object, slot.name = "netP", type = c("functional","structural"), color.use = NULL, pathway.labeled = NULL, top.label = 1, pathway.remove = NULL, pathway.remove.show = TRUE, dot.size = c(2, 6), label.size = 2, dot.alpha = 0.5,
                                 xlabel = "Dim 1", ylabel = "Dim 2", title = NULL,
-                                font.size = 10, font.size.title = 12, do.label = T, show.legend = T, show.axes = T) {
+                                size.text = 10, size.text.title = 12, do.label = T, show.legend = T, show.axes = T) {
   type <- match.arg(type)
   comparison <- "single"
   comparison.name <- paste(comparison, collapse = "-")
@@ -3459,9 +3459,9 @@ netVisual_embedding <- function(object, slot.name = "netP", type = c("functional
   gg <- ggplot(data = df, aes(x, y)) +
     geom_point(aes(size = Commun.Prob.,fill = Groups, colour = Groups), shape = 21) +
     CellChat_theme_opts() +
-    theme(text = element_text(size = font.size), legend.key.height = grid::unit(0.15, "in"))+
+    theme(text = element_text(size = size.text), legend.key.height = grid::unit(0.15, "in"))+
     guides(colour = guide_legend(override.aes = list(size = 3)))+
-    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= font.size.title, face="plain"))+
+    labs(title = title, x = xlabel, y = ylabel) + theme(plot.title = element_text(size= size.text.title, face="plain"))+
     scale_size_continuous(limits = c(0,1), range = dot.size, breaks = c(0.1,0.5,0.9)) +
     theme(axis.text.x = element_blank(),axis.text.y = element_blank(),axis.ticks = element_blank()) +
     theme(axis.line.x = element_line(size = 0.25), axis.line.y = element_line(size = 0.25))
