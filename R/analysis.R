@@ -1467,12 +1467,10 @@ compareInteractions <- function(object, measure = c("count", "weight"), color.us
     gg <- ggplot(df, aes(x=dataset, y=count, fill = group)) +
       geom_bar(stat="identity", width=width, position=position_dodge())
   }
-  gg <- gg + geom_text(aes(label=count, size=size.text*0.5, color="gray"), size=size.text*0.5, vjust=-0.3, position = position_dodge(0.9))
+  gg <- gg + geom_text(aes(label=count), vjust=-0.3, size=size.text*0.5, position = position_dodge(0.9))
   gg <- gg + ylab(ylabel) + xlab(xlabel) + theme_classic() +
-    labs(title = title.name) +  theme(plot.title = element_text(size = size.text, face = "bold", hjust = 0.5),
-                                      axis.text = element_text(size=size.text), 
-                                      axis.title.x=element_text(size=size.text),
-                                      axis.title.y=element_text(size=size.text))
+    labs(title = title.name) +  theme(plot.title = element_text(size = size.text, face = "bold", hjust = 0.5)) +
+    theme(text = element_text(size = size.text), axis.text = element_text(colour="black"))
   gg <- gg + scale_fill_manual(values = alpha(color.use, alpha = color.alpha), drop = FALSE)
   #  gg <- gg + scale_color_manual(values = alpha(color.use, alpha = 1), drop = FALSE) + guides(colour = FALSE)
   if (remove.xtick) {
