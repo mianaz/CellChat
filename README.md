@@ -1,3 +1,6 @@
+## Changes made to the original package:
+1. Removed the *.o files in `src/` as they prevent the package from compiling on shinyapps.io
+
 <p align="center">
   <img width="200"  src="https://github.com/jinworks/CellChat/blob/main/CellChat_Logo.png">
 </p>
